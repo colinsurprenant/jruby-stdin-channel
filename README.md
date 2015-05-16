@@ -4,6 +4,11 @@ JRuby Java extension gem which extracts an *interruptible* FileChannel from Java
 
 Escaping the blocking read using `close` **only works with Java 8**. When using Java 7, the behaviour is identical to the normal JRuby `$stdin` where an input character needs to be typed for the read method to unblock.
 
+I have only tested it with
+- OSX 10.10.3
+- JRuby 1.7.20
+- Java 7 & 8
+
 ## Background
 
 This was created to help solve an issue in [logstash](http://github.com/elastic/logstash) with the stdin input plugin that prevents normally exiting logstash upon `SIGINT` or `SIGTERM`. See https://github.com/elastic/logstash/issues/1769 for details.
