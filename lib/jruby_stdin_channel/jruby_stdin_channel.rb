@@ -13,5 +13,10 @@ else
   require "jruby_stdin_channel/jruby_stdin_channel.jar"
 end
 
+module StdinChannel
+  class ClosedChannelError < StandardError
+  end
+end
+
 require "stdin_channel"
 require "jruby_stdin_channel/version"

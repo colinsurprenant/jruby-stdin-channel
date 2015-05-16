@@ -3,6 +3,7 @@ package com.jrubystdinchannel;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.FileChannel;
 
 import org.jruby.Ruby;
@@ -14,7 +15,6 @@ import org.jruby.RubyString;
 import org.jruby.exceptions.RaiseException;
 import org.jruby.anno.JRubyClass;
 import org.jruby.anno.JRubyMethod;
-import org.jruby.javasupport.JavaObject;
 import org.jruby.runtime.ObjectAllocator;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
@@ -95,6 +95,8 @@ public class StdinChannelLibrary implements Library {
 
             try {
                 n = this.channel.read(data);
+            } catch (ClosedChannelException e) {
+                throw context.runtime.newRaiseException(getRuntime().getModule("StdinChannel").getClass("ClosedChannelError"), "stdin channel closed");
             } catch (IOException e) {
                 throw context.runtime.newIOErrorFromException(e);
             }

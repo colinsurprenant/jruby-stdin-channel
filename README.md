@@ -52,6 +52,8 @@ begin
   end
 rescue EOFError
   puts("> EOF")
+rescue StdinChannel::ClosedChannelError
+  puts("> closed")
 rescue => e
   puts("> exception e=#{e.inspect}")
 end
